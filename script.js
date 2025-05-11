@@ -32,22 +32,26 @@ const convertDecimalToRoman = num => {
   return res.join('')
 }
 
-const isValid = num => {
-    if(num === 0){
-        return "⚠️ Fun fact: The number 0 didn’t exist in Roman numerals. It’s like trying to order a pizza with no toppings… or crust."
-    } else if (num < 0){
-        return "⚔️ Whoa there, time traveler! The Romans didn’t count negative numbers — they were too busy conquering the world."
-    } else if (num >= 4000){
-        return "😅 Whoa! Even Caesar didn't count that high. Try something between 1 and 3999."
-    } else if (!num){
-        return "🧐 Are you trying to convert a secret code? Roman numerals need real numbers!"
-    } else {
-        return convertDecimalToRoman(num)
-    }
+const isValid = value => {
+  const num = Number(value);
+
+  if (value.trim() === "") { //detecta si el input está vacío o lleno de espacios
+    return "✍️ Oops! You forgot to type something. Even the Romans had to start somewhere.";
+  } else if (Number.isNaN(num)) { // detecta si se escribió algo que NO puede convertirse en número
+    return "🧐 Are you trying to convert a secret code? Roman numerals need real numbers!";
+  } else if (num === 0) { 
+    return "⚠️ Fun fact: The number 0 didn’t exist in Roman numerals. It’s like trying to order a pizza with no toppings… or crust.";
+  } else if (num < 0) {
+    return "⚔️ Whoa there, time traveler! The Romans didn’t count negative numbers — they were too busy conquering the world.";
+  } else if (num >= 4000) {
+    return "😅 Whoa! Even Caesar didn't count that high. Try something between 1 and 3999.";
+  } else {
+    return convertDecimalToRoman(num);
+  }
 }
 
 convertBtn.addEventListener('click', () => {
-  const result = isValid(Number(input.value))
+  const result = isValid(input.value)
   resultContainer.textContent = result;
   resultContainer.classList.add('resultMsg')
   output.textContent = ""
